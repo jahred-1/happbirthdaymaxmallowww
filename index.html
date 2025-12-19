@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday! 🎂</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #ffe6e6;
+            --pastel-pink: #ffb7b2;
+            --pastel-peach: #ffdac1;
+            --pastel-cream: #fff5e6;
+            --pastel-lavender: #e2f0cb; /* actually green in this palette name but let's fix */
+            --real-lavender: #c7ceea;
+            --text-color: #6d6d6d;
+            --btn-color: #ff9aa2;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: var(--text-color);
+        }
+
+        #main-container {
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Cake Section */
+        .cake-section {
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .message {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            min-height: 60px;
+        }
+
+        /* Cake CSS Art */
+        .cake-container {
+            position: relative;
+            width: 250px;
+            height: 200px;
+            margin: 0 auto;
+        }
+
+        .cake {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 150px;
+        }
+
+        .plate {
+            width: 240px;
+            height: 10px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            position: absolute;
+            bottom: -10px;
+            left: -20px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+
+        .layer {
+            width: 100%;
+            position: absolute;
+            border-radius: 10px;
+        }
+
+        .layer-bottom {
+            bottom: 0;
+            height: 50px;
+            background-color: var(--pastel-peach);
+            border-bottom: 5px solid #eebb99;
+        }
+
+        .layer-middle {
+            bottom: 50px;
+            height: 50px;
+            background-color: var(--pastel-pink);
+            border-bottom: 5px solid #e59999;
+        }
+
+        .layer-top {
+            bottom: 100px;
+            height: 50px;
+            background-color: var(--pastel-cream);
+            border-radius: 10px 10px 0 0;
+            border-bottom: 5px solid #e6dccf;
+        }
+
+        .icing {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background-color: #fff;
+            border-radius: 10px 10px 0 0;
+            z-index: 2;
+        }
+
+        .drip {
+            position: absolute;
+            background-color: #fff;
+            width: 15px;
+            height: 30px;
+            border-radius: 0 0 10px 10px;
+            top: 10px;
+            z-index: 2;
+        }
+
+        .drip:nth-child(1) { left: 20px; height: 35px; }
+        .drip:nth-child(2) { left: 50px; height: 25px; }
+        .drip:nth-child(3) { left: 80px; height: 40px; }
+        .drip:nth-child(4) { left: 110px; height: 30px; }
+        .drip:nth-child(5) { left: 140px; height: 35px; }
+        .drip:nth-child(6) { left: 170px; height: 25px; }
+
+        .candle {
+            position: absolute;
+            bottom: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 50px;
+            background: repeating-linear-gradient(45deg, #fff, #fff 5px, #ff9aa2 5px, #ff9aa2 10px);
+            border-radius: 3px;
+            z-index: 1;
+        }
+
+        .flame {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 25px;
+            background: radial-gradient(ellipse at bottom, #ffeb3b, #ff9800);
+            border-radius: 50% 50% 20% 20%;
+            animation: flicker 0.1s infinite alternate;
+            box-shadow: 0 0 10px #ffeb3b, 0 0 20px #ff9800;
+            transform-origin: center bottom;
+        }
+
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1); opacity: 1; }
+            100% { transform: translateX(-50%) scale(0.9, 1.1); opacity: 0.9; }
+        }
+
+        .flame.out {
+            animation: puff-out 0.5s forwards;
+        }
+
+        @keyframes puff-out {
+            0% { opacity: 1; transform: translateX(-50%) scale(1); }
+            50% { opacity: 0.5; transform: translateX(-50%) scale(1.2) translateY(-10px); }
+            100% { opacity: 0; transform: translateX(-50%) scale(0); }
+        }
+
+        /* Reveal Button & Gift Button */
+        .btn-container {
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 15px 30px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(45deg, #ff9aa2, #ffb7b2);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 154, 162, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+        }
+
+        .action-btn.visible {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0);
+            animation: bounce 2s infinite;
+        }
+
+        /* Stagger animation for buttons */
+        #gift-btn.visible {
+            animation-delay: 0.2s;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 154, 162, 0.6);
+        }
+
+        /* Letter Section */
+        #letter-section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.5s ease;
+            z-index: 10;
+        }
+
+        #letter-section.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .letter-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 900px;
+            width: 95%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            backdrop-filter: blur(5px);
+            scrollbar-width: thin;
+            scrollbar-color: #ffb7b2 #fff5e6;
+        }
+
+        /* Custom Scrollbar for Chrome/Safari/Edge */
+        .letter-card::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .letter-card::-webkit-scrollbar-track {
+            background: #fff5e6;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .letter-card::-webkit-scrollbar-thumb {
+            background-color: #ffb7b2;
+            border-radius: 10px;
+            border: 3px solid #fff5e6;
+        }
+
+        .letter-card::before {
+            content: '💌';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3rem;
+            background: #fff;
+            border-radius: 50%;
+            padding: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        #letter-content {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.1rem; /* Smaller font size */
+            font-weight: 500;
+            line-height: 1.6; /* Tighter spacing */
+            color: #555;
+            text-align: left;
+            margin-top: 20px;
+        }
+        
+        /* Gift Section (Bouquet) */
+        #gift-section {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            z-index: 20;
+            backdrop-filter: blur(3px);
+        }
+
+        #gift-section.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .gift-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 90%;
+            width: 400px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            transform: scale(0.8);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        #gift-section.visible .gift-card {
+            transform: scale(1);
+        }
+
+        .bouquet-container {
+            font-size: 10rem;
+            margin: 20px 0;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .close-btn {
+            background: #ffb7b2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+        
+        .close-btn:hover {
+            background: #ff9aa2;
+        }
+
+        .letter-line {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 1s ease, transform 1s ease;
+            margin-bottom: 8px; /* Reduced margin */
+        }
+
+        .letter-line.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Utility */
+        .hidden {
+            display: none;
+        }
+
+        /* Floating Hearts Background */
+        .bg-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .heart-bg {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.5);
+            animation: floatUp 10s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Background Hearts -->
+    <div class="bg-hearts" id="bg-hearts"></div>
+
+    <div id="main-container">
+        <!-- Cake Section -->
+        <div class="cake-section" id="cake-section">
+            <div class="message" id="instruction-text">Make a wish... allow your microphone and blow the candle 🎂✨</div>
+            
+            <div class="cake-container">
+                <div class="cake">
+                    <div class="plate"></div>
+                    <div class="layer layer-bottom"></div>
+                    <div class="layer layer-middle"></div>
+                    <div class="layer layer-top">
+                        <div class="icing"></div>
+                        <div class="drip"></div>
+                        <div class="drip"></div>
+                        <div class="drip"></div>
+                        <div class="drip"></div>
+                        <div class="drip"></div>
+                        <div class="drip"></div>
+                    </div>
+                    <div class="candle">
+                        <div class="flame" id="flame"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-container">
+                <button id="gift-btn" class="action-btn">My little gift for you 🎁</button>
+                <button id="reveal-btn" class="action-btn">Open My Letter 💌</button>
+            </div>
+        </div>
+
+        <!-- Letter Section -->
+        <div id="letter-section">
+            <div class="letter-card">
+                <div id="letter-content">
+                    <!-- Text will be injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Gift Section -->
+        <div id="gift-section">
+            <div class="gift-card">
+                <h2>For You! 💖</h2>
+                <div class="bouquet-container">
+                    🌹
+                </div>
+                <p>A virtual flower for you birthday girl! <br> May your day be as beautiful as this flower.</p>
+                <button id="close-gift" class="close-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        // Configuration
+        const letterLines = [
+            "To the love of my life,",
+            "<br><br>",
+            "Happiest Birthday, Maxmallow! I hope today is super special for you, filled with as much happiness and warmth as you bring into my life every day. Every time na tinitignan ko mga photo mo na naka-smile ikaw, it feels like everything around me gets a little brighter. Your laugh is honestly the best sound, and thinking about you always makes me smile. I still remember all our late-night calls, how you talked to me like I was the luckiest person in the world. Even when we stopped talking for a while, I felt like you were still there with me, making everything feel better.",
+            "<br><br>",
+            "Sometimes I can’t believe how lucky I am to have met someone as amazing as you. You understand me, care for me, and make even ordinary days feel so special. Nakilala kita at nagkaroon ako ng taong katulad mo, and that’s something I’ll always be grateful for. I love how you care for me—your patience, your kindness, and all the little things you do. It inspires me to be better and reminds me how lucky I am to have you in my life, even if we’re apart. You make life feel happier, warmer, and more meaningful.",
+            "<br><br>",
+            "I know things didn’t go exactly how I hoped, but looking back, I’m so thankful for all the moments we shared—the laughs, the love, and everything that helped me grow. You’ve been such an important part of my life, and because of you, I learned a lot about love and what it really means to care for someone. If I ever hurt you, I’m truly sorry; I never meant to cause you pain, and I carry those moments not to regret, but to learn and become better. I still hope we can talk again someday, and that I can show you the love you truly deserve. You deserve all the happiness in the world. No matter how far we’ve gone apart, you’ll always be someone special to me. Always take care of yourself ha. I’ll always wish you the very best—good luck, future nurse! 🎂🎉🌷",
+            "<br><br>",
+            "I miss you so much."
+    
+        ];
+
+
+        // Elements
+        const flame = document.getElementById('flame');
+        const instructionText = document.getElementById('instruction-text');
+        const revealBtn = document.getElementById('reveal-btn');
+        const giftBtn = document.getElementById('gift-btn');
+        const cakeSection = document.getElementById('cake-section');
+        const letterSection = document.getElementById('letter-section');
+        const letterContent = document.getElementById('letter-content');
+        const giftSection = document.getElementById('gift-section');
+        const closeGiftBtn = document.getElementById('close-gift');
+        const bgMusic = document.getElementById('bg-music');
+        
+        // State
+        let isCandleBlown = false;
+        let audioContext;
+        let analyser;
+        let microphone;
+        let javascriptNode;
+
+        // Initialize Background Hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-bg');
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 5 + 5 + 's';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            document.getElementById('bg-hearts').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 10000);
+        }
+        setInterval(createHeart, 500);
+
+        // Try to play music immediately
+        window.addEventListener('load', () => {
+            bgMusic.play().catch(error => {
+                console.log("Audio autoplay blocked. Waiting for user interaction.");
+            });
+        });
+
+        // Microphone Logic
+        async function startMicrophone() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                analyser = audioContext.createAnalyser();
+                microphone = audioContext.createMediaStreamSource(stream);
+                javascriptNode = audioContext.createScriptProcessor(2048, 1, 1);
+
+                analyser.smoothingTimeConstant = 0.8;
+                analyser.fftSize = 1024;
+
+                microphone.connect(analyser);
+                analyser.connect(javascriptNode);
+                javascriptNode.connect(audioContext.destination);
+
+                javascriptNode.onaudioprocess = function() {
+                    if (isCandleBlown) return;
+
+                    const array = new Uint8Array(analyser.frequencyBinCount);
+                    analyser.getByteFrequencyData(array);
+
+                    let values = 0;
+                    const length = array.length;
+                    for (let i = 0; i < length; i++) {
+                        values += array[i];
+                    }
+
+                    const average = values / length;
+
+                    // Threshold for "blowing"
+                    // Usually blowing creates a lot of low-end noise and general volume
+                    // 40-50 is a decent threshold for normal talking/blowing
+                    if (average > 40) {
+                        blowOutCandle();
+                    }
+                };
+            } catch (err) {
+                console.error("Microphone access denied or error:", err);
+                instructionText.innerText = "Click the flame to blow it out! (Mic denied) 🎂";
+                // Fallback: Click to blow
+                flame.addEventListener('click', blowOutCandle);
+                flame.style.cursor = 'pointer';
+            }
+        }
+
+        // Auto-start mic on interaction (browsers block audio context until user gesture)
+        document.body.addEventListener('click', () => {
+            if (!audioContext) startMicrophone();
+            if (bgMusic.paused) {
+                bgMusic.play().catch(e => console.log("Audio play failed", e));
+            }
+        }, { once: true });
+
+        // Fallback if they don't click anywhere initially, show a hint
+        setTimeout(() => {
+            if (!audioContext) {
+                 instructionText.innerText = "Tap anywhere to enable the magic! ✨";
+            }
+        }, 2000);
+
+
+        function blowOutCandle() {
+            if (isCandleBlown) return;
+            isCandleBlown = true;
+
+            // 1. Stop mic
+            if (microphone) microphone.disconnect();
+            if (javascriptNode) javascriptNode.disconnect();
+
+            // 2. Flame animation
+            flame.classList.add('out');
+            
+            // 3. Confetti
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ffb7b2', '#ffdac1', '#e2f0cb', '#b5ead7', '#c7ceea']
+            });
+
+            // 4. Change Text
+            instructionText.innerText = "Yay! You did it! 🎉";
+
+            // 5. Show Reveal Button
+            setTimeout(() => {
+                revealBtn.classList.add('visible');
+                giftBtn.classList.add('visible');
+            }, 1000);
+        }
+
+        // Reveal Button Click
+        revealBtn.addEventListener('click', () => {
+            // Fade out cake section
+            cakeSection.style.opacity = '0';
+            cakeSection.style.pointerEvents = 'none';
+            
+            // Wait for fade out then show letter
+            setTimeout(() => {
+                cakeSection.style.display = 'none';
+                letterSection.classList.add('visible');
+                showLetterLines();
+            }, 1000);
+        });
+
+        // Gift Button Logic
+        giftBtn.addEventListener('click', () => {
+            giftSection.classList.add('visible');
+            // More confetti for the gift!
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ffb7b2', '#ffdac1', '#e2f0cb', '#b5ead7', '#c7ceea']
+            });
+        });
+
+        closeGiftBtn.addEventListener('click', () => {
+            giftSection.classList.remove('visible');
+        });
+
+        function showLetterLines() {
+            letterContent.innerHTML = '';
+            letterLines.forEach((line) => {
+                const lineEl = document.createElement('div');
+                lineEl.classList.add('letter-line');
+                lineEl.classList.add('visible');
+                lineEl.innerHTML = line;
+                letterContent.appendChild(lineEl);
+            });
+
+            const closeButtonContainer = document.createElement('div');
+            closeButtonContainer.style.textAlign = 'center';
+            closeButtonContainer.style.marginTop = '40px';
+            closeButtonContainer.style.marginBottom = '20px';
+
+            const closeBtn = document.createElement('button');
+            closeBtn.innerText = "Close";
+            closeBtn.classList.add('close-btn');
+            
+            closeBtn.onclick = function() {
+                letterSection.classList.remove('visible');
+                
+                // Bring back the cake
+                cakeSection.style.display = 'block';
+                requestAnimationFrame(() => {
+                    cakeSection.style.opacity = '1';
+                    cakeSection.style.pointerEvents = 'all';
+                });
+            };
+
+            closeButtonContainer.appendChild(closeBtn);
+            letterContent.appendChild(closeButtonContainer);
+        }
+    </script>
+      <audio autoplay loop id="bg-music">
+      <source src="happy-birthday.mp3" type="audio/mpeg" />
+    </audio>
+</body>
+</html>
